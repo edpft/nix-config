@@ -60,7 +60,7 @@
   users.users.ed = {
     isNormalUser = true;
     initialPassword = "password";
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker"  ]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile. To search, run:
@@ -72,6 +72,8 @@
   ];
 
   security.pam.services.kdewallet.enableKwallet = true;
+
+  virtualisation.docker.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

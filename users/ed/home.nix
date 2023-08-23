@@ -68,6 +68,7 @@
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [
+      mkhl.direnv
       rust-lang.rust-analyzer
       streetsidesoftware.code-spell-checker
       tamasfe.even-better-toml
@@ -85,4 +86,12 @@
       "workbench.colorTheme" = "Default Dark+";
     };
   };
+
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true; # see note on other shells below
+    nix-direnv.enable = true;
+  };
+
+  programs.bash.enable = true;
 }
