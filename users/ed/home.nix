@@ -72,7 +72,7 @@
       streetsidesoftware.code-spell-checker
       tamasfe.even-better-toml
       usernamehw.errorlens
-      jnoortheen.nix-ide      
+      jnoortheen.nix-ide
     ];
     userSettings = {
       "git.autofetch" = true;
