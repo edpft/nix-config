@@ -65,23 +65,24 @@
     };
   };
 
-#  programs.vscode = {
-#    enable = true;
-#    extensions = with pkgs.vscode-extensions; [
-#      rust-lang.rust-analyzer
-#      streetsidesoftware.code-spell-checker
-#      tamasfe.even-better-toml
-#      usernamehw.errorlens
-#      jnoortheen.nix-ide      
-#    ];
-#    userSettings = {
-#      "git.autofetch" = true;
-#      "[rust]" = {
-#        "editor.formatOnSave" = true;
-#        "editor.tabSize" = 4;
-#      };
-#      "rust-analyzer.checkOnSave.command": "clippy";
-#      "[nix]"."editor.tabSize" = 2;
-#    };
-#  };
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+      rust-lang.rust-analyzer
+      streetsidesoftware.code-spell-checker
+      tamasfe.even-better-toml
+      usernamehw.errorlens
+      jnoortheen.nix-ide      
+    ];
+    userSettings = {
+      "git.autofetch" = true;
+      "[rust]" = {
+        "editor.formatOnSave" = true;
+        "editor.tabSize" = 4;
+      };
+      "rust-analyzer.checkOnSave.command" = "clippy";
+      "[nix]"."editor.tabSize" = 2;
+      "workbench.colorTheme" = "Default Dark+";
+    };
+  };
 }

@@ -1,21 +1,22 @@
 config_path := "$HOME" / "repos" / "nix-config"
-user := "ed"
 
 apply-system:
     #!/bin/sh
     set -euxo pipefail
-    sudo nixos-rebuild switch -I nixos-config={{config_path}}/system/configuration.nix
+    pushd {{config_path}}
+    sudo nixos-rebuild switch --flake .#
+    popd
 
-apply-user user=user:
+apply-user:
     #!/bin/sh
     set -euxo pipefail
-    home-manager switch -f {{config_path}}/users/{{user}}/home.nix
+    pushd {{config_path}}
+    nix build .#homeManagerConfigurations.ed.activationPackage
+    ./result/activate
+    popd
 
-update-system:
+update:
     #!/bin/sh
-    sudo nix-channel --update
-
-update-user:
-    #!/bin/sh
-    nix-channel --update
-
+    set -euxo pipefail
+    pushd {{config_path}}
+    nix flake update
