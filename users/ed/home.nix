@@ -22,7 +22,10 @@
     gh
     git-crypt
     gnupg
+    fira-mono
   ];
+
+   fonts.fontconfig.enable = true;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -84,6 +87,7 @@
       "rust-analyzer.checkOnSave.command" = "clippy";
       "[nix]"."editor.tabSize" = 2;
       "workbench.colorTheme" = "Default Dark+";
+      "terminal.integrated.fontFamily" = "Fira-Mono";
     };
   };
 
