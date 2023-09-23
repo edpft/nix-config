@@ -1,13 +1,13 @@
 config_path := "$HOME" / "repos" / "nix-config"
 
-apply-system:
+upgrade-system:
     #!/bin/sh
     set -euxo pipefail
     pushd {{config_path}}
     sudo nixos-rebuild switch --flake .#
     popd
 
-apply-user:
+upgrade-user:
     #!/bin/sh
     set -euxo pipefail
     pushd {{config_path}}
@@ -20,3 +20,12 @@ update:
     set -euxo pipefail
     pushd {{config_path}}
     nix flake update
+    popd
+
+prune:
+    #!/bin/sh
+    set -euxo pipefail
+    pushd {{config_path}}
+    nix-collect-garbage --delete-old
+    popd
+
