@@ -84,12 +84,14 @@
         "editor.formatOnSave" = true;
         "editor.tabSize" = 4;
       };
-      "rust-analyzer.checkOnSave.command" = "clippy";
+      "rust-analyzer.checkOnSave" = true;
+      "rust-analyzer.check.command" = "clippy";
       "[nix]"."editor.tabSize" = 2;
       "workbench.colorTheme" = "Default Dark+";
       "terminal.integrated.fontFamily" = "Fira-Mono";
     };
   };
+
 
   programs.direnv = {
     enable = true;
