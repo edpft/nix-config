@@ -1,18 +1,18 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Enable flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -40,13 +40,30 @@
     enable = true;
     displayManager = {
       sddm.enable = true;
+      # Launch KDE in Wayland session
       defaultSession = "plasmawayland";
     };
-    desktopManager.plasma5.enable = true;
+    desktopManager.plasma5 = {
+      enable = true;
+      useQtScaling = true;
+    };
   };
+  # Ensure GTK themes are applied in Wayland applications
   programs.dconf.enable = true;
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  
+  environment = {
+    # Ensure that electron apps work with Wayland
+    sessionVariables.NIXOS_OZONE_WL = "1";
+    plasma5.excludePackages = with pkgs.libsForQt5; [
+      ark
+      elisa
+      khelpcenter
+      kinfocenter
+      kmenuedit
+      oxygen
+      print-manager
+    ];
+  };
+
   # Configure keymap in X11
   services.xserver.layout = "gb";
 
@@ -62,18 +79,19 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ed = {
+    description = "Ed Fawcett-Taylor";
     isNormalUser = true;
     initialPassword = "password";
-    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "docker"]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-      firefox
-      htop
-      wget
-    ];
+    firefox
+    htop
+    wget
+  ];
 
   security.pam.services.kdewallet.enableKwallet = true;
 
@@ -110,6 +128,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-
 }
-

@@ -21,8 +21,6 @@
   # environment.
   home.packages = with pkgs; [
     just
-    git-crypt
-    gnupg
     fira-mono
   ];
 
@@ -46,27 +44,52 @@
 
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-extensions; [
-      mkhl.direnv
-      rust-lang.rust-analyzer
-      streetsidesoftware.code-spell-checker-british-english
-      tamasfe.even-better-toml
-      usernamehw.errorlens
-      jnoortheen.nix-ide
-      dbaeumer.vscode-eslint
-      esbenp.prettier-vscode
-      timonwong.shellcheck
-      github.vscode-github-actions
-      github.vscode-pull-request-github
-      oderwat.indent-rainbow
-      kamadorueda.alejandra
-    ];
+    mutableExtensionsDir = false;
+    extensions = with pkgs.vscode-extensions;
+      [
+        dbaeumer.vscode-eslint
+        esbenp.prettier-vscode
+        github.vscode-github-actions
+        github.vscode-pull-request-github
+        jnoortheen.nix-ide
+        kamadorueda.alejandra
+        mkhl.direnv
+        oderwat.indent-rainbow
+        rust-lang.rust-analyzer
+        streetsidesoftware.code-spell-checker
+        tamasfe.even-better-toml
+        timonwong.shellcheck
+        usernamehw.errorlens
+        yzhang.markdown-all-in-one
+      ]
+      ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "code-spell-checker-british-english";
+          publisher = "streetsidesoftware";
+          version = "1.3.0";
+          sha256 = "sha256-w6RNWJH8Orc3dM0iH0sFh+WdvYTThn74HJ89KTPNAUA=";
+        }
+        {
+          name = "better-comments";
+          publisher = "aaron-bond";
+          version = "3.0.2";
+          sha256 = "sha256-hQmA8PWjf2Nd60v5EAuqqD8LIEu7slrNs8luc3ePgZc=";
+        }
+        {
+          name = "vscode-conventional-commits";
+          publisher = "vivaxy";
+          version = "1.25.0";
+          sha256 = "sha256-KPP1suR16rIJkwj8Gomqa2ExaFunuG42fp14lBAZuwI=";
+        }
+      ];
     userSettings = {
       "[html]" = {
         "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        "editor.tabSize" = 2;
       };
       "[javascript]" = {
         "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        "editor.tabSize" = 2;
       };
       "[json]" = {
         "editor.defaultFormatter" = "esbenp.prettier-vscode";
@@ -76,20 +99,24 @@
         "editor.defaultFormatter" = "kamadorueda.alejandra";
         "editor.tabSize" = 2;
       };
+      "[rust]" = {
+      };
       "[typescript]" = {
         "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        "editor.tabSize" = 2;
       };
       "[yaml]" = {
         "editor.tabSize" = 2;
       };
+      "cSpell.language" = "en,en-GB";
       "css.validate" = false;
       "editor.fontFamily" = "Fira-Mono";
       "editor.fontSize" = 16;
-      "editor.rulers" = [120];
-      "editor.tabSize" = 4;
       "editor.formatOnSave" = true;
+      "editor.rulers" = [120];
       "git.autofetch" = true;
       "less.validate" = false;
+      "prettier.printWidth" = 120;
       "rust-analyzer.check.command" = "clippy";
       "rust-analyzer.checkOnSave" = true;
       "scss.validate" = false;
