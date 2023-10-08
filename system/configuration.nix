@@ -44,7 +44,9 @@
     };
     desktopManager.plasma5.enable = true;
   };
-
+  programs.dconf.enable = true;
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  
   # Configure keymap in X11
   services.xserver.layout = "gb";
 

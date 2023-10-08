@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "ed";
@@ -40,7 +42,6 @@
 
   programs.gh = {
     enable = true;
-
   };
 
   programs.vscode = {
@@ -48,18 +49,16 @@
     extensions = with pkgs.vscode-extensions; [
       mkhl.direnv
       rust-lang.rust-analyzer
-      streetsidesoftware.code-spell-checker
+      streetsidesoftware.code-spell-checker-british-english
       tamasfe.even-better-toml
       usernamehw.errorlens
       jnoortheen.nix-ide
       dbaeumer.vscode-eslint
       esbenp.prettier-vscode
       timonwong.shellcheck
-      davidanson.vscode-markdownlint
       github.vscode-github-actions
       github.vscode-pull-request-github
       oderwat.indent-rainbow
-      skellock.just
       kamadorueda.alejandra
     ];
     userSettings = {
@@ -101,7 +100,6 @@
     };
   };
 
-
   programs.direnv = {
     enable = true;
     enableBashIntegration = true; # see note on other shells below
@@ -109,7 +107,6 @@
   };
 
   programs.bash.enable = true;
-
   programs.starship.enable = true;
 
   qt = {
