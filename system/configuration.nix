@@ -35,13 +35,15 @@
   console.useXkbConfig = true;
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-
   # Enable the Plasma 5 Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-
+  services.xserver = {
+    enable = true;
+    displayManager = {
+      sddm.enable = true;
+      defaultSession = "plasmawayland";
+    };
+    desktopManager.plasma5.enable = true;
+  };
 
   # Configure keymap in X11
   services.xserver.layout = "gb";
@@ -60,16 +62,16 @@
   users.users.ed = {
     isNormalUser = true;
     initialPassword = "password";
-    extraGroups = [ "wheel" "docker"  ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    firefox
-    htop
-    wget
-  ];
+      firefox
+      htop
+      wget
+    ];
 
   security.pam.services.kdewallet.enableKwallet = true;
 

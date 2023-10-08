@@ -19,42 +19,12 @@
   # environment.
   home.packages = with pkgs; [
     just
-    gh
     git-crypt
     gnupg
     fira-mono
   ];
 
-   fonts.fontconfig.enable = true;
-
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-  };
-
-  # You can also manage environment variables but you will have to manually
-  # source
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/ed/etc/profile.d/hm-session-vars.sh
-  #
-  # if you don't want to manage your shell through Home Manager.
-  home.sessionVariables = {
-    # EDITOR = "emacs";
-  };
+  fonts.fontconfig.enable = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -68,6 +38,11 @@
     };
   };
 
+  programs.gh = {
+    enable = true;
+
+  };
+
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [
@@ -77,18 +52,52 @@
       tamasfe.even-better-toml
       usernamehw.errorlens
       jnoortheen.nix-ide
+      dbaeumer.vscode-eslint
+      esbenp.prettier-vscode
+      timonwong.shellcheck
+      davidanson.vscode-markdownlint
+      github.vscode-github-actions
+      github.vscode-pull-request-github
+      oderwat.indent-rainbow
+      skellock.just
+      kamadorueda.alejandra
     ];
     userSettings = {
-      "git.autofetch" = true;
-      "[rust]" = {
-        "editor.formatOnSave" = true;
-        "editor.tabSize" = 4;
+      "[html]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
       };
-      "rust-analyzer.checkOnSave" = true;
+      "[javascript]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
+      "[json]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        "editor.tabSize" = 2;
+      };
+      "[nix]" = {
+        "editor.defaultFormatter" = "kamadorueda.alejandra";
+        "editor.tabSize" = 2;
+      };
+      "[typescript]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
+      "[yaml]" = {
+        "editor.tabSize" = 2;
+      };
+      "css.validate" = false;
+      "editor.fontFamily" = "Fira-Mono";
+      "editor.fontSize" = 16;
+      "editor.rulers" = [120];
+      "editor.tabSize" = 4;
+      "editor.formatOnSave" = true;
+      "git.autofetch" = true;
+      "less.validate" = false;
       "rust-analyzer.check.command" = "clippy";
-      "[nix]"."editor.tabSize" = 2;
-      "workbench.colorTheme" = "Default Dark+";
+      "rust-analyzer.checkOnSave" = true;
+      "scss.validate" = false;
       "terminal.integrated.fontFamily" = "Fira-Mono";
+      "window.titleBarStyle" = "custom";
+      "workbench.colorTheme" = "Default Dark+";
+      "workbench.preferredDarkColorTheme" = "Default Dark+";
     };
   };
 
@@ -102,4 +111,10 @@
   programs.bash.enable = true;
 
   programs.starship.enable = true;
+
+  qt = {
+    enable = true;
+    platformTheme = "kde";
+    style.name = "breeze";
+  };
 }
