@@ -136,9 +136,7 @@
   programs.bash.enable = true;
   programs.starship.enable = true;
 
-  qt = {
+  wayland.windowManager.hyprland = {
     enable = true;
-    platformTheme = "kde";
-    style.name = "breeze";
   };
 }

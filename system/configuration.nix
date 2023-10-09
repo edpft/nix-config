@@ -34,48 +34,12 @@
   i18n.defaultLocale = "en_GB.UTF-8";
   console.useXkbConfig = true;
 
-  # Enable the X11 windowing system.
-  # Enable the Plasma 5 Desktop Environment.
-  services.xserver = {
-    enable = true;
-    displayManager = {
-      sddm.enable = true;
-      # Launch KDE in Wayland session
-      defaultSession = "plasmawayland";
-    };
-    desktopManager.plasma5 = {
-      enable = true;
-      useQtScaling = true;
-    };
-  };
-  # Ensure GTK themes are applied in Wayland applications
-  programs.dconf.enable = true;
-  environment = {
-    # Ensure that electron apps work with Wayland
-    sessionVariables.NIXOS_OZONE_WL = "1";
-    plasma5.excludePackages = with pkgs.libsForQt5; [
-      ark
-      elisa
-      khelpcenter
-      kinfocenter
-      kmenuedit
-      oxygen
-      print-manager
-    ];
-  };
-
-  # Configure keymap in X11
-  services.xserver.layout = "gb";
-
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ed = {
@@ -96,6 +60,9 @@
   security.pam.services.kdewallet.enableKwallet = true;
 
   virtualisation.docker.enable = true;
+
+  programs.hyprland.enable = true;
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

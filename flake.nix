@@ -3,15 +3,19 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
+
     home-manger = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs = {
     nixpkgs,
     home-manager,
+    hyprland,
     ...
   }: let
     system = "x86_64-linux";
@@ -41,6 +45,7 @@
         inherit pkgs;
 
         modules = [
+          hyprland.homeManagerModules.default
           ./users/ed/home.nix
         ];
       };
