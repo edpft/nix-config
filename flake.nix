@@ -32,6 +32,7 @@
         inherit system;
 
         modules = [
+          ./system/greetd.nix
           ./system/configuration.nix
         ];
       };

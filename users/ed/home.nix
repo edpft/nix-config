@@ -22,7 +22,14 @@
   home.packages = with pkgs; [
     just
     fira-mono
+    wl-clipboard
   ];
+
+  home.sessionVariables = {
+    MOZ_ENABLE_WAYLAND = 1;
+    XDG_CURRENT_DESKTOP = "sway";
+    NIXOS_OZONE_WL=1;
+  };
 
   fonts.fontconfig.enable = true;
 
@@ -136,9 +143,46 @@
   programs.bash.enable = true;
   programs.starship.enable = true;
 
-  qt = {
+  # wayland-related
+
+  wayland.windowManager.sway = {
     enable = true;
-    platformTheme = "kde";
-    style.name = "breeze";
+    config = rec {
+      fonts = {
+        names = ["Fira Mono"];
+        size = 12.0;
+      };
+      gaps = {
+        inner = 10;
+        outer = 10;
+      };
+      input = {
+        "*" = {
+          xkb_layout = "gb";
+        };
+      };
+      modifier = "Mod4";
+      output = {
+        "*" = {
+          mode = "1920x1080@60Hz";
+          bg = "/etc/darkest_hour_1920_1080.jpg fill";
+        };
+      };
+      startup = [
+        {
+          command = "systemctl --user restart waybar";
+          always = true;
+        }
+      ];
+      terminal = "alacritty";
+    };
   };
+
+  programs.waybar = {
+    enable = true;
+    systemd.target = "sway-session.target";
+  };
+
+  services.mako.enable = true;
+  programs.alacritty.enable = true;
 }
