@@ -11,8 +11,7 @@ upgrade-user:
     #!/bin/sh
     set -euxo pipefail
     pushd {{config_path}}
-    nix build .#homeManagerConfigurations.ed.activationPackage
-    ./result/activate
+    home-manager switch --flake .#ed@laptop
     popd
 
 update:
@@ -26,6 +25,14 @@ prune:
     #!/bin/sh
     set -euxo pipefail
     pushd {{config_path}}
-    nix-collect-garbage --delete-old
+    nix-collect-garbage --delete-older-than 7d
     popd
 
+purge:
+    #!/bin/sh
+    set -euxo pipefail
+    pushd {{config_path}}
+    sudo nix-env --delete-generations 7d --profile /nix/var/nix/profiles/system
+    sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
+    nix-store --gc
+    popd

@@ -8,7 +8,9 @@
 }: {
   imports = [
     # Include the results of the hardware scan.
-    ./hardware-configuration.nix
+    ./modules/hardware-configuration.nix
+    ./modules/fonts.nix
+    ./modules/greetd.nix
   ];
 
   # Enable flakes
@@ -17,6 +19,12 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # Increase the number of file watchers
+  # See https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
+  boot.kernel.sysctl = {
+    "fs.inotify.max_user_watches" = 524288;
+  };
 
   networking.hostName = "laptop"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -37,6 +45,7 @@
   # wayland-related
   programs.dconf.enable = true;
   security.polkit.enable = true;
+  security.pam.services.swaylock = {};
   hardware.opengl.enable = true;
   environment = {
     # Ensure that electron apps work with Wayland
@@ -53,12 +62,11 @@
     description = "Ed Fawcett-Taylor";
     isNormalUser = true;
     initialPassword = "password";
-    extraGroups = ["wheel" "docker"]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "networkmanager" "docker"]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
-    firefox-wayland
     htop
     wget
   ];
