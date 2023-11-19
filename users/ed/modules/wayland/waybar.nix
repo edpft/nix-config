@@ -66,33 +66,33 @@
         #network,
         #pulseaudio {
           border-radius: 7px;
-          color: #${base01};
+          color: alpha(#${base01}, 0.8);
           margin-top: 1.75px;
           padding: 3.5px 14px;
         }
 
         #battery {
-          background-color: #${base0B};
+          background-color: alpha(#${base0B}, 0.8);
         }
 
         #battery.charging, #battery.plugged {
-          background-color: #${base09};
+          background-color: alpha(#${base09}, 0.8);
         }
 
         #battery.warning:not(.charging) {
-          background-color: #${base09};
+          background-color: alpha(#${base09}, 0.8);
         }
 
         @keyframes blink {
           to {
-              background-color: #${base05};
-              color: #${base08};
+              background-color: alpha(#${base05}, 0.8);
+              color: alpha(#${base08}, 0.8);
           }
         }
 
         #battery.critical:not(.charging) {
-          background-color: #${base08};
-          color: #${base05};
+          background-color: alpha(#${base08}, 0.8);
+          color: alpha(#${base05}, 0.8);
           animation-name: blink;
           animation-duration: 0.5s;
           animation-timing-function: linear;
@@ -101,24 +101,24 @@
         }
 
       #clock {
-        background-color: #${base00};
-        color: #${base05};
+        background-color: alpha(#${base00}, 0.8);
+        color: alpha(#${base05}, 0.8);
       }
 
       #network {
-        background-color: #${base0D};
+        background-color: alpha(#${base0D}, 0.8);
       }
 
       #network.disconnected {
-        background-color: #${base08};
+        background-color: alpha(#${base08}, 0.8);
       }
 
       #pulseaudio {
-        background-color: #${base0A};
+        background-color: alpha(#${base0A}, 0.8);
       }
 
       #pulseaudio.muted {
-        background-color: #${base0C};
+        background-color: alpha(#${base0C}, 0.8);
       }
     '';
   };
