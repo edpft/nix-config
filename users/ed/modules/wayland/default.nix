@@ -12,7 +12,6 @@
     ./rofi/default.nix
     ./mako.nix
     ./kanshi.nix
+    ./swaylock.nix
   ];
-
-  programs.swaylock.enable = true;
 }
